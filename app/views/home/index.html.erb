@@ -1,0 +1,19 @@
+<%= stylesheet_link_tag "style" %> 
+ <%= error_messages_for :data_entry %>
+ <%= error_messages_for :data_entry_image %>
+
+<%=link_to "Show Gallery", show_gallery_home_url%>
+<% form_for  @data_entry,:url =>{:action=>"save_data"}, :html => {:multipart => true} do |f| %>
+    Category: <%= f.collection_select :data_entry_category_id, DataEntryCategory.all,:id,:name,{:include_blank=>'select'} %><br />
+    Location: <%= f.text_field :location %><br />
+    Property Name :<%= f.text_field :property_name %><br />
+    <% fields_for :data_entry_image do |p| %>
+       <%= p.file_field :uploaded_data  %> <br />
+    <% end %>
+    <%#= submit_tag 'Save', :name => 'save' %>
+    <%#= submit_tag 'Cancel', :name => 'cancel' %>
+
+      <%= submit_tag "Save", :name => "Add" %>
+      <%= submit_tag "Cancel", :name => "cancel" %>
+    <br />
+<% end %>

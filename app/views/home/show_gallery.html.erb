@@ -1,0 +1,13 @@
+<%=link_to "ADD", index_home_url%><br />
+
+<% @data_entry.each do |data| %>
+   <% @data_entry_image=DataEntryImage.find(:first,:conditions=>["data_entry_id=?",data.id]) %>
+   <%= image_tag(@data_entry_image.public_filename, :width=> '197px', :height=> '165px' ) %>
+   
+   <%=data.location %>
+   <% @category=DataEntryCategory.find(data.data_entry_category_id) %>
+   <%= @category.name %>
+   <%=data.property_name %>
+
+   <br />
+<% end %>
