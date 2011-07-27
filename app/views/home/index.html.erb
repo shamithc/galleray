@@ -1,19 +1,90 @@
-<%= stylesheet_link_tag "style" %> 
- <%= error_messages_for :data_entry %>
- <%= error_messages_for :data_entry_image %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- general meta info -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="distribution" content="global" />
+    <meta name="resource-type" content="document" />
+    <meta name="audience" content="all"/>
+    <meta name="Rating" content="General" />
+    <meta name="Language" content="en" />
+    <meta name="robots" content="noindex, nofollow" />
+    <%= stylesheet_link_tag "style" %>
+    <%= stylesheet_link_tag "main" %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">
+          <a href="/">Sandbox</a>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="content-wrap">
+        <div id="nav">
+          <%=link_to "Add image", index_home_url%>
+          <%=link_to "Show Gallery", show_gallery_home_url%>
+        </div>
+        <div class="clear"></div>
 
-<%=link_to "Show Gallery", show_gallery_home_url%>
-<% form_for  @data_entry,:url =>{:action=>"save_data"}, :html => {:multipart => true} do |f| %>
-    Category: <%= f.collection_select :data_entry_category_id, DataEntryCategory.all,:id,:name,{:include_blank=>'select'} %><br />
-    Location: <%= f.text_field :location %><br />
-    Property Name :<%= f.text_field :property_name %><br />
-    <% fields_for :data_entry_image do |p| %>
-       <%= p.file_field :uploaded_data  %> <br />
-    <% end %>
-    <%#= submit_tag 'Save', :name => 'save' %>
-    <%#= submit_tag 'Cancel', :name => 'cancel' %>
 
-      <%= submit_tag "Save", :name => "Add" %>
-      <%= submit_tag "Cancel", :name => "cancel" %>
-    <br />
-<% end %>
+        <h2>Add image</h2>
+        <div class="clear"></div>
+
+        <% form_for  @data_entry,:url =>{:action=>"save_data"}, :html => {:multipart => true} do |f| %>
+
+          <%= error_messages_for :data_entry %>
+          <%= error_messages_for :data_entry_image %>
+          <div class="hidden">
+
+          </div>
+
+          <!-- row 1 -->
+
+          <div class="row">
+            <%= f.label "Category:" %>  <%= f.collection_select :data_entry_category_id, DataEntryCategory.all,:id,:name,{:include_blank=>'Select'} %>
+          </div>
+          <div class="clear"></div>
+
+
+
+          <!-- row 1 -->
+
+          <div class="row">
+            <%= f.label  "Location:" %> <%= f.text_field :location %>
+          </div>
+          <div class="clear"></div>
+
+
+          <!-- row 2 -->
+          <div class="row">
+            <%= f.label  "Property Name:" %>  <%= f.text_field :property_name %>
+          </div>
+          <div class="clear"></div>
+
+          <!-- row 3 -->
+          <div class="row">
+            <% fields_for :data_entry_image do |p| %>
+              <%= f.label  "Choose Image" %> <%= p.file_field :photo %>
+              <%#= p.file_field :uploaded_data  %>
+            <% end %>
+          </div>
+          <div class="clear"></div>
+
+
+
+          <!-- row 4 -->
+          <div class="row submit-row">
+            <%= submit_tag "Save", :name => "Add",:class=>"submit-button" %>
+            <%= submit_tag "Cancel", :name => "cancel",:class=>"cancel-button" %>
+          </div>
+          <div class="clear"></div>
+
+        <% end %>
+      </div>
+      <div class="clear"></div>
+      <!-- end container -->
+    </div>
+    <div class="clear"></div>
+  </body>
+</html>

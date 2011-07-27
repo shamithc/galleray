@@ -1,13 +1,96 @@
-<%=link_to "ADD", index_home_url%><br />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- general meta info -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="audience" content="all"/>
+<meta name="Rating" content="General" />
+<meta name="Language" content="en" />
+<meta name="robots" content="noindex, nofollow" />
+
+
+<%= stylesheet_link_tag "style" %>
+<%= stylesheet_link_tag "main" %>
+<%= stylesheet_link_tag "jquery.lightbox-0.5" %>
+
+<!-- lightbox plugin -->
+<%= javascript_include_tag "jquery-1.5.min" %>
+<%= javascript_include_tag "jquery.lightbox-0.5.min" %>
+<script type="text/javascript">
+<!--
+$(document).ready(function(){
+$("#gallery a").lightBox({fixedNavigation:true});
+});
+
+-->
+</script>
+
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+	<div class="logo">
+	<a href="/">Sandbox</a>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+<div class="content-wrap">
+
+<div id="nav">
+<%=link_to "Add image", index_home_url%>
+<%=link_to "Show Gallery", show_gallery_home_url%>
+</div>
+<div class="clear"></div>
+
+
+<h2>Gallery</h2>
+<div class="clear"></div>
+
+<div id="gallery">
+
+
+
 
 <% @data_entry.each do |data| %>
+<div class="img-wrap">
    <% @data_entry_image=DataEntryImage.find(:first,:conditions=>["data_entry_id=?",data.id]) %>
-   <%= image_tag(@data_entry_image.public_filename, :width=> '197px', :height=> '165px' ) %>
    
-   <%=data.location %>
+   <%#= image_tag(@data_entry_image.public_filename(:thumb)) %>
+   <%#= image_tag(@data_entry_image.public_filename(:thumb)) %>
    <% @category=DataEntryCategory.find(data.data_entry_category_id) %>
-   <%= @category.name %>
-   <%=data.property_name %>
+   
 
-   <br />
+          <%#= link_to(image_tag(@data_entry_image.public_filename(:thumb), :width=> '197', :height=> '165' ), @data_entry_image.public_filename) %>
+          <%#= image_tag @data_entry_image.photo.url %>
+         <%= link_to(image_tag(@data_entry_image.photo.url(:thumb) ), @data_entry_image.photo.url) %>    
+	<div class="name"><%=data.property_name %></div>
+	<div class="loc">
+		<span class="location"><span class="lab">Location: </span><%=h data.location %></span>
+	</div>
+  <div class="categ">
+          <span class="category"><span class="lab">Category: </span><%= @category.name %></span>
+  </div>
+</div>
 <% end %>
+
+</div>
+
+
+
+
+
+
+</div>
+<div class="clear"></div>
+
+
+<!-- end container -->
+</div>
+<div class="clear"></div>
+</body>
+</html>

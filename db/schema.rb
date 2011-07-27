@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110418054046) do
+ActiveRecord::Schema.define(:version => 20110419115811) do
 
   create_table "data_entries", :force => true do |t|
     t.integer  "data_entry_category_id"
@@ -27,9 +27,11 @@ ActiveRecord::Schema.define(:version => 20110418054046) do
 
   create_table "data_entry_images", :force => true do |t|
     t.integer  "data_entry_id"
-    t.string   "filename"
-    t.string   "content_type"
-    t.integer  "size",          :default => 14000
+    t.integer  "parent_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size",    :default => 14000
+    t.string   "thumbnail"
     t.string   "status"
     t.integer  "width"
     t.integer  "height"
